@@ -16,5 +16,5 @@ GPU with CUDA support is also needed
 ### Code Clone Detection
 
  1. `cd clone`
- 2. run `pipeline.py --lang c` or `pipeline.py --lang java` to generate preprocessed data.
+ 2. run `python pipeline.py --lang c` or `python pipeline.py --lang java` to generate preprocessed data for the two datasets.
  2. run `python train.py --lang c` to train on OJClone, `python train.py --lang java` on BigCLoneBench respectively.
