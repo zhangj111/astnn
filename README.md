@@ -9,7 +9,7 @@ javalang 0.11.0<br>
 GPU with CUDA support is also needed
 
 ### Source Code Classification
-1. `cd code_emb`
+1. `cd astnn`
 2. run `python pipeline.py` to regenerate preprocessed data.
 3. run `python train.py` for training and evaluation
 
