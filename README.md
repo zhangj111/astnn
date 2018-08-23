@@ -10,11 +10,11 @@ GPU with CUDA support is also needed
 
 ### Source Code Classification
 1. `cd astnn`
-2. run `python pipeline.py` to regenerate preprocessed data.
+2. run `python pipeline.py` to generate preprocessed data.
 3. run `python train.py` for training and evaluation
 
 ### Code Clone Detection
 
  1. `cd clone`
- 2. run `pipeline.py --lang c` or `pipeline.py --lang java` to regenerate preprocessed data.
+ 2. run `pipeline.py --lang c` or `pipeline.py --lang java` to generate preprocessed data.
  2. run `python train.py --lang c` to train on OJClone, `python train.py --lang java` on BigCLoneBench respectively.
