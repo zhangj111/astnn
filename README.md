@@ -1,12 +1,12 @@
 ### Requirements
-+python 3.6<br>
-+pandas 0.20.3<br>
-+gensim 3.5.0<br>
-+scikit-learn 0.19.1<br>
-+pytorch 0.3.1<br>
-+pycparser 2.18<br>
-+javalang 0.11.0<br>
-+GPU with CUDA support is also needed
++ python 3.6<br>
++ pandas 0.20.3<br>
++ gensim 3.5.0<br>
++ scikit-learn 0.19.1<br>
++ pytorch 0.3.1<br>
++ pycparser 2.18<br>
++ javalang 0.11.0<br>
++ GPU with CUDA support is also needed
 
 ### Source Code Classification
 1. `cd astnn`
