@@ -1,5 +1,5 @@
 # ASTNN--A Novel Neural Source Code Representation based on Abstract Syntax Tree
-This repository includes the code and experimental data in our paper titled as "A Novel Neural Source Code Representation based on Abstract Syntax Tree" that will be presented at ICSE'2019. It can be used to encode code fragments into supervised vectors for various source code realted tasks. We have applied the representation in two common tasks: source code classification and code clone detection. It is also expected to be helpful in more tasks.
+This repository includes the code and experimental data in our paper titled as "A Novel Neural Source Code Representation based on Abstract Syntax Tree" that will be presented at ICSE'2019. It can be used to encode code fragments into supervised vectors for various source code related tasks. We have applied the representation in two common tasks: source code classification and code clone detection. It is also expected to be helpful in more tasks.
 
 ### Requirements
 + python 3.6<br>
@@ -16,7 +16,7 @@ Install all the dependent packages via pip:
 
 	$ pip install pandas==0.20.3 gensim==3.5.0 scikit-learn==0.19.1 pycparser==2.18 javalang==0.11.0
  
-Install pytorch 0.3.1: 
+Install pytorch 0.3.1 with cuda: 
 
 	$ pip install https://download.pytorch.org/whl/cu80/torch-0.3.1-cp36-cp36m-linux_x86_64.whl
 
