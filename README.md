@@ -20,7 +20,7 @@ Install pytorch 0.3.1:
 
 	$ pip install https://download.pytorch.org/whl/cu80/torch-0.3.1-cp36-cp36m-linux_x86_64.whl
 
-The version of pytorch 0.3.1 is mandatory. Higher versions may lead to errors for our exisiting code, and we will improve our code in the future.
+The version of pytorch 0.3.1 is mandatory. Higher versions may lead to errors for our exisiting code, and we will improve our code in the future. See https://pytorch.org/get-started/previous-versions/ for more options.
 
 ### Source Code Classification
 1. `cd astnn`
