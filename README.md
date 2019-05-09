@@ -14,15 +14,16 @@ This repository includes the code and experimental data in our paper entitled "A
 + BATCH_SIZE should be configured based on the GPU memory size
 
 ### How to install
-Install all the dependent packages via pip:
+Install all the dependent packages via conda and pip:
 
-	$ pip install pandas==0.20.3 gensim==3.5.0 scikit-learn==0.19.1 pycparser==2.18 javalang==0.11.0
+	$ conda install pandas scikit-learn pycparser paramiko -c anaconda gensim
+	$ pip install --no-deps javalang
  
-Install pytorch 0.3.1 with cuda: 
+Install pytorch: 
 
-	$ pip install https://download.pytorch.org/whl/cu80/torch-0.3.1-cp36-cp36m-linux_x86_64.whl
+	$ conda install -c pytorch pytorch
 
-The version of pytorch 0.3.1 is mandatory. Higher versions may lead to errors for our exisiting code, and we will improve our code in the future. See https://pytorch.org/get-started/previous-versions/ for more options according to your CUDA version.
+The version of pytorch >= 0.3.1 is mandatory. Higher versions may lead to errors for our exisiting code, and we will improve our code in the future. See https://pytorch.org/get-started/previous-versions/ for more options according to your CUDA version.
 
 ### Source Code Classification
 1. `cd astnn`

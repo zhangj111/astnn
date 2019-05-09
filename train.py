@@ -35,7 +35,7 @@ if __name__ == '__main__':
     LABELS = 104
     EPOCHS = 15
     BATCH_SIZE = 64
-    USE_GPU = True
+    USE_GPU = False
     MAX_TOKENS = word2vec.syn0.shape[0]
     EMBEDDING_DIM = word2vec.syn0.shape[1]
 
@@ -82,7 +82,7 @@ if __name__ == '__main__':
             _, predicted = torch.max(output.data, 1)
             total_acc += (predicted == train_labels).sum()
             total += len(train_labels)
-            total_loss += loss.data[0]*len(train_inputs)
+            total_loss += loss.item()*len(train_inputs)
 
         train_loss_.append(total_loss / total)
         train_acc_.append(total_acc / total)
@@ -108,7 +108,7 @@ if __name__ == '__main__':
             _, predicted = torch.max(output.data, 1)
             total_acc += (predicted == val_labels).sum()
             total += len(val_labels)
-            total_loss += loss.data[0]*len(val_inputs)
+            total_loss += loss.item()*len(val_inputs)
         val_loss_.append(total_loss / total)
         val_acc_.append(total_acc / total)
         end_time = time.time()
@@ -140,5 +140,5 @@ if __name__ == '__main__':
         _, predicted = torch.max(output.data, 1)
         total_acc += (predicted == test_labels).sum()
         total += len(test_labels)
-        total_loss += loss.data[0] * len(test_inputs)
+        total_loss += loss.item() * len(test_inputs)
     print("Testing results(Acc):", total_acc / total)
