@@ -38,19 +38,11 @@ Please refer to the `pkl` files in the corresponding directories of the two task
  
 ### Citation
   If you find this code useful in your research, please, consider citing our paper:
-  > @inproceedings{Zhang:2019:NNS:3339505.3339604,
- author = {Zhang, Jian and Wang, Xu and Zhang, Hongyu and Sun, Hailong and Wang, Kaixuan and Liu, Xudong},
- title = {A Novel Neural Source Code Representation Based on Abstract Syntax Tree},
- booktitle = {Proceedings of the 41st International Conference on Software Engineering},
- series = {ICSE '19},
- year = {2019},
- location = {Montreal, Quebec, Canada},
- pages = {783--794},
- numpages = {12},
- url = {https://doi.org/10.1109/ICSE.2019.00086},
- doi = {10.1109/ICSE.2019.00086},
- acmid = {3339604},
- publisher = {IEEE Press},
- address = {Piscataway, NJ, USA},
- keywords = {abstract syntax tree, code classification, code clone detection, neural network, source code representation},
+  > @inproceedings{zhang2019novel,
+  title={A novel neural source code representation based on abstract syntax tree},
+  author={Zhang, Jian and Wang, Xu and Zhang, Hongyu and Sun, Hailong and Wang, Kaixuan and Liu, Xudong},
+  booktitle={Proceedings of the 41st International Conference on Software Engineering},
+  pages={783--794},
+  year={2019},
+  organization={IEEE Press}
 }
