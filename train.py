@@ -26,9 +26,6 @@ if __name__ == '__main__':
     val_data = pd.read_pickle(root + 'dev/blocks.pkl')
     test_data = pd.read_pickle(root+'test/blocks.pkl')
 
-    # print(train_data)
-    # print(val_data)
-    # print(test_data)
     word2vec = Word2Vec.load(root+"train/embedding/node_w2v_128").wv
     embeddings = np.zeros((word2vec.syn0.shape[0] + 1, word2vec.syn0.shape[1]), dtype="float32")
     embeddings[:word2vec.syn0.shape[0]] = word2vec.syn0
@@ -36,13 +33,12 @@ if __name__ == '__main__':
     HIDDEN_DIM = 100
     ENCODE_DIM = 128
     LABELS = 104
-    EPOCHS = 20
+    EPOCHS = 15
     BATCH_SIZE = 64
     USE_GPU = True
     MAX_TOKENS = word2vec.syn0.shape[0]
     EMBEDDING_DIM = word2vec.syn0.shape[1]
 
-    #from model.py (class "BatchProgramClassifier")
     model = BatchProgramClassifier(EMBEDDING_DIM,HIDDEN_DIM,MAX_TOKENS+1,ENCODE_DIM,LABELS,BATCH_SIZE,
                                    USE_GPU, embeddings)
     if USE_GPU:
@@ -86,8 +82,6 @@ if __name__ == '__main__':
             # calc training acc
             _, predicted = torch.max(output.data, 1)
             total_acc += (predicted == train_labels).sum()
-            #print(total_acc)
-            #print("total_acc += (predicted == train_labels).sum()")
             total += len(train_labels)
             total_loss += loss.item()*len(train_inputs)
 
