@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 
+
 class Pipeline:
     def __init__(self,  ratio, root):
         self.ratio = ratio
@@ -14,7 +15,7 @@ class Pipeline:
     # parse source code
     def parse_source(self, output_file, option):
         path = self.root+output_file
-        if os.path.exists(path) and option is 'existing':
+        if os.path.exists(path) and option == 'existing':
             source = pd.read_pickle(path)
         else:
             from pycparser import c_parser
@@ -36,9 +37,9 @@ class Pipeline:
         train_split = int(ratios[0]/sum(ratios)*data_num)
         val_split = train_split + int(ratios[1]/sum(ratios)*data_num)
         data = data.sample(frac=1, random_state=666)
-        train = data.iloc[:train_split] 
-        dev = data.iloc[train_split:val_split] 
-        test = data.iloc[val_split:] 
+        train = data.iloc[:train_split]
+        dev = data.iloc[train_split:val_split]
+        test = data.iloc[val_split:]
 
         def check_or_create(path):
             if not os.path.exists(path):
@@ -82,7 +83,7 @@ class Pipeline:
         w2v.save(self.root+'train/embedding/node_w2v_' + str(size))
 
     # generate block sequences with index representations
-    def generate_block_seqs(self,data_path,part):
+    def generate_block_seqs(self, data_path, part):
         from prepare_data import get_blocks as func
         from gensim.models.word2vec import Word2Vec
 
@@ -113,11 +114,11 @@ class Pipeline:
     # run for processing data to train
     def run(self):
         print('parse source code...')
-        self.parse_source(output_file='ast.pkl',option='existing')
+        self.parse_source(output_file='ast.pkl', option='existing')
         print('split data...')
         self.split_data()
         print('train word embedding...')
-        self.dictionary_and_embedding(None,128)
+        self.dictionary_and_embedding(None, 128)
         print('generate block sequences...')
         self.generate_block_seqs(self.train_file_path, 'train')
         self.generate_block_seqs(self.dev_file_path, 'dev')
@@ -126,5 +127,3 @@ class Pipeline:
 
 ppl = Pipeline('3:1:1', 'data/')
 ppl.run()
-
-
