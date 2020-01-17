@@ -41,13 +41,13 @@ class Pipeline:
             pd.DataFrame: DataFrame with the columns id, code (C code parsed by
                 pycparser) and label.
         """
+        input_file_path = os.path.join(self.root, input_file)
         if output_file is None:
-            source = pd.read_pickle(os.path.join(self.root, input_file))
+            source = pd.read_pickle(input_file_path)
         else:
             from pycparser import c_parser
             parser = c_parser.CParser()
-            source = pd.read_pickle(os.path.join(self.root, input_file))
-            # 'programs.pkl')
+            source = pd.read_pickle(input_file_path)
             source.columns = ['id', 'code', 'label']
             source['code'] = source['code'].progress_apply(parser.parse)
 
