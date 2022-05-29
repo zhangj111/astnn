@@ -133,12 +133,13 @@ class BatchProgramClassifier(nn.Module):
         seq, start, end = [], 0, 0
         for i in range(self.batch_size):
             end += lens[i]
+            seq.append(encodes[start:end])
             if max_len-lens[i]:
                 seq.append(self.get_zeros(max_len-lens[i]))
-            seq.append(encodes[start:end])
             start = end
         encodes = torch.cat(seq)
         encodes = encodes.view(self.batch_size, max_len, -1)
+        encodes = nn.utils.rnn.pack_padded_sequence(encodes, torch.LongTensor(lens), True, False)
 
         # gru
         gru_out, hidden = self.bigru(encodes, self.hidden)
