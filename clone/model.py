@@ -140,7 +140,9 @@ class BatchProgramCC(nn.Module):
         encodes = nn.utils.rnn.pack_padded_sequence(encodes, torch.LongTensor(lens), True, False)
         # return encodes
 
-        gru_out, hidden = self.bigru(encodes, self.hidden)
+        gru_out, _ = self.bigru(encodes, self.hidden)
+        gru_out, _ = nn.utils.rnn.pack_padded_sequence(gru_out, torch.tensor(lens), enforce_sorted=False)
+
         gru_out = torch.transpose(gru_out, 1, 2)
         # pooling
         gru_out = F.max_pool1d(gru_out, gru_out.size(2)).squeeze(2)
