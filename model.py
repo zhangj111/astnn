@@ -143,7 +143,7 @@ class BatchProgramClassifier(nn.Module):
 
         # gru
         gru_out, _ = self.bigru(encodes, self.hidden)
-        gru_out, _ = nn.utils.rnn.pack_padded_sequence(gru_out, torch.tensor(lens), enforce_sorted=False)
+        gru_out, _ = nn.utils.rnn.pad_packed_sequence(gru_out, padding_value=-1e9)
 
         gru_out = torch.transpose(gru_out, 1, 2)
         # pooling
