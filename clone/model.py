@@ -141,7 +141,7 @@ class BatchProgramCC(nn.Module):
         # return encodes
 
         gru_out, _ = self.bigru(encodes, self.hidden)
-        gru_out, _ = nn.utils.rnn.pad_packed_sequence(gru_out, padding_value=-1e9)
+        gru_out, _ = nn.utils.rnn.pad_packed_sequence(gru_out, batch_first=True, padding_value=-1e9)
 
         gru_out = torch.transpose(gru_out, 1, 2)
         # pooling
