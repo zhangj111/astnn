@@ -1,8 +1,18 @@
 import pandas as pd
 import os
+from tqdm.auto import tqdm
+tqdm.pandas()
+
 
 class Pipeline:
-    def __init__(self,  ratio, root):
+    """Pipeline class
+
+    Args:
+        ratio ([type]): [description]
+        root (str): Path to the folder containing the data
+    """
+
+    def __init__(self, ratio, root: str):
         self.ratio = ratio
         self.root = root
         self.sources = None
@@ -12,19 +22,36 @@ class Pipeline:
         self.size = None
 
     # parse source code
-    def parse_source(self, output_file, option):
-        path = self.root+output_file
-        if os.path.exists(path) and option is 'existing':
-            source = pd.read_pickle(path)
+    def get_parsed_source(self, input_file: str,
+                          output_file: str = None) -> pd.DataFrame:
+        """Parse C code using pycparser
+
+        If the user doesn't provide `output_file`, the method reads the a
+        DataFrame containing the columns id, code (C code parsed by
+        pycparser) and label. Otherwise it reads a Dataframe from `input_file`
+        containing the columns id, code (input C code) and label, applies the
+        c_parser to the code column and stores the resulting dataframe into
+        `output_file`
+
+        Args:
+            input_file (str): Path to the input file
+            output_file (str): Path to the output file
+
+        Returns:
+            pd.DataFrame: DataFrame with the columns id, code (C code parsed by
+                pycparser) and label.
+        """
+        input_file_path = os.path.join(self.root, input_file)
+        if output_file is None:
+            source = pd.read_pickle(input_file_path)
         else:
             from pycparser import c_parser
             parser = c_parser.CParser()
-            source = pd.read_pickle(self.root+'programs.pkl')
-
+            source = pd.read_pickle(input_file_path)
             source.columns = ['id', 'code', 'label']
-            source['code'] = source['code'].apply(parser.parse)
+            source['code'] = source['code'].progress_apply(parser.parse)
 
-            source.to_pickle(path)
+            source.to_pickle(os.path.join(self.root, output_file))
         self.sources = source
         return source
 
@@ -36,9 +63,9 @@ class Pipeline:
         train_split = int(ratios[0]/sum(ratios)*data_num)
         val_split = train_split + int(ratios[1]/sum(ratios)*data_num)
         data = data.sample(frac=1, random_state=666)
-        train = data.iloc[:train_split] 
-        dev = data.iloc[train_split:val_split] 
-        test = data.iloc[val_split:] 
+        train = data.iloc[:train_split]
+        dev = data.iloc[train_split:val_split]
+        test = data.iloc[val_split:]
 
         def check_or_create(path):
             if not os.path.exists(path):
@@ -82,7 +109,7 @@ class Pipeline:
         w2v.save(self.root+'train/embedding/node_w2v_' + str(size))
 
     # generate block sequences with index representations
-    def generate_block_seqs(self,data_path,part):
+    def generate_block_seqs(self, data_path, part):
         from prepare_data import get_blocks as func
         from gensim.models.word2vec import Word2Vec
 
@@ -113,11 +140,15 @@ class Pipeline:
     # run for processing data to train
     def run(self):
         print('parse source code...')
-        self.parse_source(output_file='ast.pkl',option='existing')
+        if os.path.exists(os.path.join(self.root, 'ast.pkl')):
+            self.get_parsed_source(input_file='ast.pkl')
+        else:
+            self.get_parsed_source(input_file='programs.pkl',
+                                   output_file='ast.pkl')
         print('split data...')
         self.split_data()
         print('train word embedding...')
-        self.dictionary_and_embedding(None,128)
+        self.dictionary_and_embedding(None, 128)
         print('generate block sequences...')
         self.generate_block_seqs(self.train_file_path, 'train')
         self.generate_block_seqs(self.dev_file_path, 'dev')
@@ -126,5 +157,3 @@ class Pipeline:
 
 ppl = Pipeline('3:1:1', 'data/')
 ppl.run()
-
-

@@ -10,7 +10,6 @@ from sklearn.metrics import precision_recall_fscore_support
 warnings.filterwarnings('ignore')
 
 
-
 def get_batch(dataset, idx, bs):
     tmp = dataset.iloc[idx: idx+bs]
     x1, x2, labels = [], [], []
