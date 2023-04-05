@@ -83,7 +83,7 @@ class Pipeline:
 
     # split data for training, developing and testing
     def split_data(self):
-        data_path = self.root+self.language+'/'
+        data_path = self.root+'/'+self.language+'/'
         data = self.pairs
         data_num = len(data)
         ratios = [int(r) for r in self.ratio.split(':')]
@@ -116,7 +116,7 @@ class Pipeline:
     # construct dictionary and train word embedding
     def dictionary_and_embedding(self, input_file, size):
         self.size = size
-        data_path = self.root+self.language+'/'
+        data_path = self.root+'/'+self.language+'/'
         if not input_file:
             input_file = self.train_file_path
         pairs = pd.read_pickle(input_file)
@@ -154,7 +154,7 @@ class Pipeline:
         from gensim.models.word2vec import Word2Vec
 
         word2vec = Word2Vec.load(
-            self.root + self.language+'/train/embedding/node_w2v_' +
+            self.root + '/'+ self.language+'/train/embedding/node_w2v_' +
             str(self.size)
         ).wv
         vocab = word2vec.vocab
