@@ -35,6 +35,9 @@ Install pytorch according to your environment, see https://pytorch.org/
 ### How to use it on your own dataset
 
 Please refer to the `pkl` files in the corresponding directories of the two tasks. These files can be loaded by `pandas`.
+For example, to realize clone detection, you need to replace the two files in /clone/data/java, bcb_pair_ids.pkl and bcb_funcs_all.tsv.
+Specifically, the data format of bcb_pair_ids.pkl  is "id1, id2, label", where id1/2 correspond to the id in  bcb_funcs_all.tsv and label indicates whether they are clone or which clone type (i.e., 0 and 1-5 , 0 and 1 in a non-type case).
+The data format of bcb_funcs_all.tsv is "id, function".
  
 ### Citation
   If you find this code useful in your research, please, consider citing our paper:
