@@ -7,6 +7,7 @@ from gensim.models.word2vec import Word2Vec
 from model import BatchProgramCC
 from torch.autograd import Variable
 from sklearn.metrics import precision_recall_fscore_support
+from config import *
 warnings.filterwarnings('ignore')
 
 
@@ -43,13 +44,6 @@ if __name__ == '__main__':
     EMBEDDING_DIM = word2vec.syn0.shape[1]
     embeddings = np.zeros((MAX_TOKENS + 1, EMBEDDING_DIM), dtype="float32")
     embeddings[:word2vec.syn0.shape[0]] = word2vec.syn0
-
-    HIDDEN_DIM = 100
-    ENCODE_DIM = 128
-    LABELS = 1
-    EPOCHS = 5
-    BATCH_SIZE = 32
-    USE_GPU = True
 
     model = BatchProgramCC(EMBEDDING_DIM,HIDDEN_DIM,MAX_TOKENS+1,ENCODE_DIM,LABELS,BATCH_SIZE,
                                    USE_GPU, embeddings)
