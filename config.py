@@ -1,0 +1,10 @@
+VOCAB_SIZE = None # The vocabulary size of Word2Vec, None for no limit.
+MIN_COUNT = 3 # Ignores all words with total frequency lower than this.
+EMBEDDING_SIZE = 128 # Embedding size of the word vectors.
+RATIO = "3:1:1" # The ratio for spliting dataset into training, validation, and testing respectively.
+HIDDEN_DIM = 100 # The hidden dimension of the ST-Tree encoder.
+ENCODE_DIM = 128 # The hidden dimension of the BiGRU encoder.
+LABELS = 104 # The number of the classes for the output.
+EPOCHS = 15
+BATCH_SIZE = 64
+USE_GPU = True
