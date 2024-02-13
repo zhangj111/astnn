@@ -4,6 +4,7 @@ import sys
 import warnings
 import click
 from tqdm.auto import tqdm
+from config import *
 
 tqdm.pandas()
 warnings.filterwarnings('ignore')
@@ -141,8 +142,7 @@ class Pipeline:
         # trees.to_csv(data_path+'train/programs_ns.tsv')
 
         from gensim.models.word2vec import Word2Vec
-        w2v = Word2Vec(corpus, size=size, workers=16, sg=1,
-                       max_final_vocab=3000)
+        w2v = Word2Vec(corpus, size=size, workers=16, sg=1, min_count=MIN_COUNT, max_final_vocab=VOCAB_SIZE)
         w2v.save(data_path+'train/embedding/node_w2v_' + str(size))
 
     # generate block sequences with index representations
@@ -216,7 +216,7 @@ class Pipeline:
         print('split data...')
         self.split_data()
         print('train word embedding...')
-        self.dictionary_and_embedding(None, 128)
+        self.dictionary_and_embedding(None, EMBEDDING_SIZE)
         print('generate block sequences...')
         self.generate_block_seqs()
         print('merge pairs and blocks...')
@@ -229,7 +229,7 @@ class Pipeline:
 @click.option('--lang', required=True, type=str,
               help="Language for the code input ('c' or 'java')")
 def main(lang):
-    ppl = Pipeline('3:1:1', 'data', str(lang))
+    ppl = Pipeline(RATIO, 'data', str(lang))
     ppl.run()
 
 
