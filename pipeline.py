@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from tqdm.auto import tqdm
+from config import *
 tqdm.pandas()
 
 
@@ -8,8 +9,8 @@ class Pipeline:
     """Pipeline class
 
     Args:
-        ratio ([type]): [description]
-        root (str): Path to the folder containing the data
+        ratio ([type]): The ratio for spliting the dataset.
+        root (str): Path to the folder containing the data.
     """
 
     def __init__(self, ratio, root: str):
@@ -105,7 +106,7 @@ class Pipeline:
         trees.to_csv(self.root+'train/programs_ns.tsv')
 
         from gensim.models.word2vec import Word2Vec
-        w2v = Word2Vec(corpus, size=size, workers=16, sg=1, min_count=3)
+        w2v = Word2Vec(corpus, size=size, workers=16, sg=1, min_count=MIN_COUNT, max_final_vocab=VOCAB_SIZE)
         w2v.save(self.root+'train/embedding/node_w2v_' + str(size))
 
     # generate block sequences with index representations
@@ -148,12 +149,12 @@ class Pipeline:
         print('split data...')
         self.split_data()
         print('train word embedding...')
-        self.dictionary_and_embedding(None, 128)
+        self.dictionary_and_embedding(None, EMBEDDING_SIZE)
         print('generate block sequences...')
         self.generate_block_seqs(self.train_file_path, 'train')
         self.generate_block_seqs(self.dev_file_path, 'dev')
         self.generate_block_seqs(self.test_file_path, 'test')
 
 
-ppl = Pipeline('3:1:1', 'data/')
+ppl = Pipeline(RATIO, 'data/')
 ppl.run()
