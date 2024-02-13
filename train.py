@@ -7,6 +7,7 @@ from gensim.models.word2vec import Word2Vec
 from model import BatchProgramClassifier
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
+from config import *
 import os
 import sys
 
@@ -30,12 +31,6 @@ if __name__ == '__main__':
     embeddings = np.zeros((word2vec.syn0.shape[0] + 1, word2vec.syn0.shape[1]), dtype="float32")
     embeddings[:word2vec.syn0.shape[0]] = word2vec.syn0
 
-    HIDDEN_DIM = 100
-    ENCODE_DIM = 128
-    LABELS = 104
-    EPOCHS = 15
-    BATCH_SIZE = 64
-    USE_GPU = True
     MAX_TOKENS = word2vec.syn0.shape[0]
     EMBEDDING_DIM = word2vec.syn0.shape[1]
 
